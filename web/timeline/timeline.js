@@ -45,6 +45,7 @@ async function toHTML(postobject) {
 
     permalink = document.createElement("a");
     permalink.setAttribute("href", "/viewpost.php?id=" + postobject.uuid);
+    permalink.classList.add("postheader");
 
     // profile picture
     // i forget why i made tis a container div but there's probably a reason
@@ -75,10 +76,12 @@ async function toHTML(postobject) {
     date.setAttribute("class", "date");
     date.innerHTML = new Date(postobject.date * 1000).toLocaleString();
     permalink.appendChild(date);
+    bannerDiv.appendChild(permalink);
 
     // options (if the current user is the post author)
     optionsDiv = document.createElement("div");
     optionsDiv.style.display = "inline";
+    optionsDiv.classList.add("optionsdiv");
 
     if(postobject.author == getCookie("username")) {
         options = document.createElement("img");
@@ -88,17 +91,18 @@ async function toHTML(postobject) {
         options.setAttribute("onclick", "menuClick(this)");
 
         optionsDiv.appendChild(options);
+        optionsDiv.appendChild(document.createElement("br"));
+        optionsDiv.appendChild(menuFactory(postobject.uuid));
         bannerDiv.appendChild(optionsDiv);
-        bannerDiv.appendChild(menuFactory(postobject.uuid));
     }
 
-    bannerDiv.appendChild(permalink);
     post.appendChild(bannerDiv);
 
 
     // content
     content = document.createElement("p");
     content.innerHTML = postobject.content;
+    content.classList.add("posttext");
     post.appendChild(content);
 
     // first level replies
@@ -122,8 +126,9 @@ async function viewpost() {
 
 function menuClick(e) {
     let uuid = e.getAttribute("uuid");
-
-    document.getElementById(uuid).children[0].children[1].style.display = "inline";
+    var currentDisplay = document.getElementById(uuid).children[0].children[1].children[2].style.display;
+    document.getElementById(uuid).children[0].children[1].children[2].style.display =
+    (currentDisplay == "inline") ? "none" : "inline";
 }
 
 // do people do this in JS?
@@ -133,16 +138,30 @@ function menuFactory(uuid) {
     menuDiv.setAttribute("uuid", uuid);
 
     menuDiv.style.display = "none";
+    
+    deleteBtn = document.createElement("a");
+    deleteBtn.setAttribute("uuid", uuid);
+    deleteBtn.setAttribute("href", "#");
+    deleteBtn.setAttribute("onclick", "javascript:deletePost(this);");
 
-    optDelete = document.createElement("div");
-    optDelete.setAttribute("class", "menuOption");
     deleteText = document.createElement("span");
     deleteText.setAttribute("class", "deleteText");
     deleteText.innerHTML = "Delete";
 
+    deleteBtn.appendChild(deleteText);
 
-
-    optDelete.appendChild(deleteText);
-    menuDiv.appendChild(optDelete);
+    menuDiv.appendChild(deleteBtn);
     return menuDiv;
+}
+
+function deletePost(e) {
+    console.log(e);
+    let uuid = e.getAttribute("uuid");
+    API("/api/v1/DELETE.php", {
+        user: getCookie("username"),
+        key: getCookie("token"),
+        post: uuid
+    });
+
+    document.getElementById(uuid).remove();
 }

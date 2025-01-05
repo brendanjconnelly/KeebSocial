@@ -47,6 +47,13 @@ function createPost($username, $content) {
     return $uuid;
 }
 
+function deletePost($uuid) {
+    global $keebsocial_content;
+    return $keebsocial_content->posts->deleteOne(
+        ['uuid' => $uuid]
+    );
+}
+
 // uuid of parent keeb
 function reply($username, $content, $uuid) {
 

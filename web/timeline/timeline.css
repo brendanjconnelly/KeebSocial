@@ -27,15 +27,14 @@
 .postico {
     vertical-align: middle;
     border-radius: 64px;
-}
+}   
 
 .postoptions {
     width: 18px;
     height: auto;
     float: right;
-
-    padding-top: 30px;
-    padding-right: 16px;
+    margin-top: 30px;
+    margin-right: 16px;
     border-radius: 0px;
     
     cursor: pointer;
@@ -44,11 +43,18 @@
 .menuOptions {
     position: relative;
     display: inline;
-    top: 60px;
-    left: 95%;
     font-weight: bold;
+    border: 1px solid;
+    border-style: solid;
+    border-color: black;
+    float: right;
 }
 
 .deleteText {
     color: red;
+}
+
+.posttext {
+    width: 90%;
+    word-wrap: break-word;
 }
