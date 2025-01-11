@@ -8,8 +8,6 @@
 <button id="submit_bio" onclick="submit_bio();">Submit</button>
 <p id="bio_res"></p>
 
-<br><br>
-
 <p>Change Name:</p>
 <input id="new_name" placeholder="New Name"></input>
 <br>
