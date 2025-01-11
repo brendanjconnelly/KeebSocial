@@ -34,7 +34,7 @@ function createPost($username, $content) {
     $keebsocial_content->posts->insertOne([
         'uuid' => $uuid,
         'author' => getUserField($username, 'uuid'),
-        'content' => $content,
+        'content' => htmlspecialchars($content),
         'parent' => '',
         'replies' => [],
         'likes' => [],

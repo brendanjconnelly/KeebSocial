@@ -23,7 +23,7 @@ if((strcmp($data->field, "follows") != 0) && (strcmp($data->field, "followers") 
 $uuidarr = getUserArray($data->user, $data->field);
 $namearr = [];
 foreach($uuidarr as $uuid) {
-    array_push($namearr, getUsername($uuid));
+    array_push($namearr, htmlspecialchars(getUsername($uuid)));
 }
 
 echo json_encode($namearr);
