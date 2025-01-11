@@ -73,11 +73,11 @@ function checkUserArguments($username, $field) {
 
 function initializeUser($username, $name) {
     global $keebsocial_content;
-
+    $uuid = uniqid();
     $keebsocial_content->users->insertOne([
         'username' => $username,
         'name' => $name,
-        'uuid' => uniqid(),
+        'uuid' => $uuid,
         'date' => time(),
         'bio' => 'KeebSocial User',
         'keebs' => [],
@@ -91,6 +91,8 @@ function initializeUser($username, $name) {
         'likes_count' => 0,
         'private' => false
     ]);
+
+    pushUserArray($username, "follows", $uuid);
 }
 
 function cUserExists($username) {

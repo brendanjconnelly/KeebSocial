@@ -131,7 +131,18 @@ function menuClick(e) {
     (currentDisplay == "inline") ? "none" : "inline";
 }
 
-// do people do this in JS?
+// Hide menu if we've clicked anywhere else
+document.addEventListener("click", function(e) {
+    if(!e.target.classList.contains("postoptions")) {
+        elems = document.getElementsByClassName("menuOptions");
+        for(let i = 0; i < elems.length; i++) {
+            elems[i].style.display = "none";
+        }
+    }
+});
+
+
+// Generate post options menu
 function menuFactory(uuid) {
     menuDiv = document.createElement("div");
     menuDiv.setAttribute("class", "menuOptions");
