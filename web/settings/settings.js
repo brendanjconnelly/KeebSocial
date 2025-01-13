@@ -39,3 +39,43 @@ async function submit_passwd() {
         document.getElementById("pw_res").innerHTML = "An error occurred.";
     }
 }
+
+
+async function submit_pfp() {
+    newpfp = document.getElementById("new_pfp").files[0];
+    formdata = new FormData();
+    formdata.append("user", getCookie("username"));
+    formdata.append("key", getCookie("token"));
+    formdata.append("pfp", newpfp, "pfp.png");
+    console.log(formdata);
+    let resp = await fetch("/api/v1/UPLOADPFP.php", {
+        method: 'POST',
+        body: formdata
+    });
+
+    console.log(await resp.text());
+}
+
+// Fill in bio and name settings
+
+async function prefill() {
+    let bio = await API("/api/v1/GETPROFILE.php", {
+        user: getCookie("username"),
+        key: getCookie("token"),
+        target: getCookie("username"),
+        field: "bio"
+    })
+
+    document.getElementById("new_bio").value = bio;
+
+    let name = await API("/api/v1/GETPROFILE.php", {
+        user: getCookie("username"),
+        key: getCookie("token"),
+        target: getCookie("username"),
+        field: "name"
+    })
+
+    document.getElementById("new_name").value = name;
+}
+
+prefill();

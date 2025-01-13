@@ -1,3 +1,8 @@
 input {
     margin: 1px;
 }
+
+textarea {
+    width: 25%;
+    height: 100px;
+}

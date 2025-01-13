@@ -14,6 +14,17 @@
 <button id="submit_name" onclick="submit_name();">Submit</button>
 <p id="name_res"></p>
 
+<br>
+
+<p>Change Profile Picture</p>
+<p>Accepted file formats: <code>.png .jpg</code></p>
+
+<input type="file" id="new_pfp" name="Profile Picture" accept="image/png, image/jpeg">
+<br>
+<button id="submit_pfp" onclick="submit_pfp();">Upload</button>
+<p>this doesnt work yet lol!</p>
+
+<br>
 <p>Change Password:</p>
 Old Password: <input id="old_pw" type="password"></input>
 <br>
@@ -24,6 +35,7 @@ Confirm: <input id="new_pw2" type="password"></input>
 <button id="submit_passwd" onclick="submit_passwd();">Submit</button>
 <br>
 <p id="pw_res"></p>
+
 
 <script src="/settings/settings.js"></script>
 <?php echo file_get_contents(getenv("PHP_ROOT") . "/resources/footer.php"); ?>
