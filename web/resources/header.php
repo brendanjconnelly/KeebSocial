@@ -31,7 +31,7 @@
         </div>
         <a href="/login" id="login"><span class="navbarspan">Login</span></a>
         <div id="menu">
-          <a href="javascript:void" id="profile"><img src="https://dummyimage.com/64/64/fff"></a>
+          <a href="javascript:void" id="profile"><img id="headerpfp" wdith="64" height="64" src="https://dummyimage.com/64/64/fff"></a>
           <br>
           <div id="menuoptions">
             <a href="/user.php"><p>Profile</p></a>
@@ -49,7 +49,20 @@
                   document.getElementById("login").style.display = 'inline-block';
                   document.getElementById("profile").style.display = 'none';
                 }
+
+                setHeaderPFP();
               }
             );
+
+            async function setHeaderPFP() {
+                let resp = await API("/api/v1/GETPROFILE.php", {
+                  user: getCookie("username"),
+                  key: getCookie("token"),
+                  target: getCookie("username"),
+                  field: "pfp"
+                })
+
+                document.getElementById("headerpfp").setAttribute("src", resp);
+              }
           </script>
       </div>

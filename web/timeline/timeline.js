@@ -53,7 +53,17 @@ async function toHTML(postobject) {
     iconDiv.style.display = "inline";
 
     icon = document.createElement("img");
-    icon.setAttribute("src", "https://dummyimage.com/64/64/fff");
+
+    let resp = await API("/api/v1/GETPROFILE.php", {
+        user: getCookie("username"),
+        key: getCookie("token"),
+        target: postobject.author,
+        field: "pfp"
+    })
+
+    icon.setAttribute("src", resp);
+    icon.setAttribute("width", "64");
+    icon.setAttribute("height", "64");
     icon.setAttribute("class", "postico");
     iconDiv.appendChild(icon);
 

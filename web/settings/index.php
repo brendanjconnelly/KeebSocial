@@ -17,7 +17,7 @@
 <br>
 
 <p>Change Profile Picture</p>
-<p>Accepted file formats: <code>.png .jpg</code></p>
+<p>Accepted file formats: <code>.png</code></p>
 
 <input type="file" id="new_pfp" name="Profile Picture" accept="image/png, image/jpeg">
 <br>

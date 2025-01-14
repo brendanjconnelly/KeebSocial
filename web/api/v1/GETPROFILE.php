@@ -26,4 +26,4 @@ if(!_isValidUserField($data->field)) {
     exit();
 }
 
-echo htmlspecialchars(getUserField($data->target, $data->field));
+echo getUserField($data->target, $data->field);
