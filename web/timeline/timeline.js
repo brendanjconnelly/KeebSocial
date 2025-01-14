@@ -43,9 +43,9 @@ async function toHTML(postobject) {
     bannerDiv = document.createElement("div");
     bannerDiv.setAttribute("class", "postbanner"); 
 
-    permalink = document.createElement("a");
-    permalink.setAttribute("href", "/viewpost.php?id=" + postobject.uuid);
-    permalink.classList.add("postheader");
+    authorlink = document.createElement("a");
+    authorlink.setAttribute("href", "/user.php?name=" + postobject.author);
+    authorlink.classList.add("postheader");
 
     // profile picture
     // i forget why i made tis a container div but there's probably a reason
@@ -57,25 +57,33 @@ async function toHTML(postobject) {
     icon.setAttribute("class", "postico");
     iconDiv.appendChild(icon);
 
-    permalink.appendChild(iconDiv);
+    authorlink.appendChild(iconDiv);
     
     // name
     author = document.createElement("span");
     author.setAttribute("class", "author");
     author.innerHTML = await getUserField("name", postobject.author);
-    permalink.appendChild(author);
+    authorlink.appendChild(author);
 
     // handle
     handle = document.createElement("span");
     handle.setAttribute("class", "handle");
     handle.innerHTML = "@" + postobject.author;
-    permalink.appendChild(handle);
+    authorlink.appendChild(handle);
 
     // time
+
+    permalink = document.createElement("a");
+    permalink.setAttribute("href", "/viewpost.php?id=" + postobject.uuid);
+    permalink.classList.add("postheader");
+
     date = document.createElement("span");
     date.setAttribute("class", "date");
     date.innerHTML = new Date(postobject.date * 1000).toLocaleString();
     permalink.appendChild(date);
+
+
+    bannerDiv.appendChild(authorlink);
     bannerDiv.appendChild(permalink);
 
     // options (if the current user is the post author)
