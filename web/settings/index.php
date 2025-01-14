@@ -22,7 +22,6 @@
 <input type="file" id="new_pfp" name="Profile Picture" accept="image/png, image/jpeg">
 <br>
 <button id="submit_pfp" onclick="submit_pfp();">Upload</button>
-<p>this doesnt work yet lol!</p>
 
 <br>
 <p>Change Password:</p>
