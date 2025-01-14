@@ -1,8 +1,8 @@
 services:
   web:
     build:
-      context: ./nginx/
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: nginx/Dockerfile
     ports:
       - "80:80"
     links:
@@ -28,3 +28,5 @@ services:
       dockerfile: mongodb/Dockerfile
     ports:
       - "27017:27017"
+    volumes:
+      - "./db:/data/db"
