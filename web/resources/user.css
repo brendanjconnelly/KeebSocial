@@ -41,3 +41,13 @@
     color: var(--action-button-color);
     border-width: 2px;
 }
+
+#headerpfp {
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+#profile_image {
+    border: 1px solid transparent;
+    border-radius: 24px;
+}

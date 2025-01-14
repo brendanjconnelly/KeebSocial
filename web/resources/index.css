@@ -129,3 +129,8 @@ a {
 body {
     font-family: 'Helvetica';
 }
+
+#headerpfp {
+    border: 1px solid transparent;
+    border-radius: 5px;
+}

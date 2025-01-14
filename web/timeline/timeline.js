@@ -144,8 +144,8 @@ async function viewpost() {
 
 function menuClick(e) {
     let uuid = e.getAttribute("uuid");
-    var currentDisplay = document.getElementById(uuid).children[0].children[1].children[2].style.display;
-    document.getElementById(uuid).children[0].children[1].children[2].style.display =
+    var currentDisplay = document.getElementById(uuid).children[0].children[2].children[2].style.display;
+    document.getElementById(uuid).children[0].children[2].children[2].style.display =
     (currentDisplay == "inline") ? "none" : "inline";
 }
 
