@@ -18,7 +18,7 @@ function setUserField($username, $field, $value) {
     $keebsocial_content->users->updateOne(
         ['username' => $username],
         ['$set' =>
-            [$field => $value]
+            [$field => htmlspecialchars($value)]
         ]
     );
 }
