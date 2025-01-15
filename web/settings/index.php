@@ -19,7 +19,7 @@
 <p>Change Profile Picture</p>
 <p>Accepted file formats: <code>.png</code></p>
 
-<input type="file" id="new_pfp" name="Profile Picture" accept="image/png, image/jpeg">
+<input type="file" id="new_pfp" name="Profile Picture" accept="image/png">
 <br>
 <button id="submit_pfp" onclick="submit_pfp();">Upload</button>
 
