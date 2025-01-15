@@ -12,7 +12,7 @@ require_once getenv("PHP_ROOT") . "/api/helper/DB.php";
  */
 function userExists($username) {
     global $keebsocial_users;
-    $result = $keebsocial_users->users->count(['username' => strolower($username)]);
+    $result = $keebsocial_users->users->count(['username' => strtolower($username)]);
     return ($result == 1); // Returns true if the user does exist
 }
 
@@ -24,7 +24,7 @@ function createUser($username, $email, $password) {
     global $keebsocial_users;
     $password = _ksHash($password);
     $resp = $keebsocial_users->users->insertOne([
-        'username' => strolower($username),
+        'username' => strtolower($username),
         'email' => "",
         'hash' => $password,
         'tokens' => []

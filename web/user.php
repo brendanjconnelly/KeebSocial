@@ -40,10 +40,12 @@ if(strcmp($_GET['name'], $_COOKIE['username']) == 0) {
     initTimeline([getParam("name")]);
 
     async function setProfilePFP() {
+
+        console.log("test");
         let resp = await API("/api/v1/GETPROFILE.php", {
             user: getCookie("username"),
             key: getCookie("token"),
-            target: getCookie("username"),
+            target: getParam("name"),
             field: "pfp"
         });
 

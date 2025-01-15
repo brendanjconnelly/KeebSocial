@@ -2,7 +2,7 @@
 
 /**
  * UPLOADPFP.php
- * @param user suer
+ * @param user user
  * @param key key
  * @param pfp new pfp (file upload)
  */
