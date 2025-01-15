@@ -107,6 +107,7 @@ async function toHTML(postobject) {
         options.setAttribute("class", "postoptions");
         options.setAttribute("uuid", postobject.uuid);
         options.setAttribute("onclick", "menuClick(this)");
+        options.setAttribute("id", "menubutton-" + postobject.uuid)
 
         optionsDiv.appendChild(options);
         optionsDiv.appendChild(document.createElement("br"));
@@ -144,8 +145,8 @@ async function viewpost() {
 
 function menuClick(e) {
     let uuid = e.getAttribute("uuid");
-    var currentDisplay = document.getElementById(uuid).children[0].children[2].children[2].style.display;
-    document.getElementById(uuid).children[0].children[2].children[2].style.display =
+    var currentDisplay = document.getElementById("options-" + uuid).style.display;
+    document.getElementById("options-" + uuid).style.display =
     (currentDisplay == "inline") ? "none" : "inline";
 }
 
@@ -165,6 +166,7 @@ function menuFactory(uuid) {
     menuDiv = document.createElement("div");
     menuDiv.setAttribute("class", "menuOptions");
     menuDiv.setAttribute("uuid", uuid);
+    menuDiv.setAttribute("id", "options-" + uuid)
 
     menuDiv.style.display = "none";
     
