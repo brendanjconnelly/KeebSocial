@@ -64,6 +64,16 @@ function getPost($uuid) {
     return $keebsocial_content->posts->findOne(['uuid' => $uuid]);
 }
 
+function getReplies($uuid) {
+    global $keebsocial_content;
+    return $keebsocial_content->posts->find(['parent' => ['$eq' => $uuid]]);
+}
+
+
+function rewriteAuthor($response) {
+    $response->author = getUsername($response->author);
+}
+
 // index 0 is most recent
 function getPostByIndex($usernameArr, $index) {
     if(!(is_array($usernameArr))) {
@@ -73,11 +83,14 @@ function getPostByIndex($usernameArr, $index) {
     global $keebsocial_content;
 
     $dbresp = $keebsocial_content->posts->find(
-        ['$or' => buildUsernameQuery($usernameArr)],
+        ['$or' => buildUsernameQuery($usernameArr),
+        'parent' => [
+            '$eq' => ''
+        ]],
         [
             'sort' => ['date' => -1],
             'limit' => $index+1
-        ]
+        ],
     );
     $i = 0;
     foreach($dbresp as $post) {
@@ -96,7 +109,11 @@ function getPostCount($usernameArr) {
     global $keebsocial_content;
 
     return $keebsocial_content->posts->count(
-        ['$or' => buildUsernameQuery($usernameArr)]
+        ['$or' => buildUsernameQuery($usernameArr),
+        'parent' => [
+            '$eq' => ''
+        ]
+        ]
     );
 }
 

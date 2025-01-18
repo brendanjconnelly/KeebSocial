@@ -48,7 +48,3 @@ $response = getPostByIndex($data->feed, $data->index);
 rewriteAuthor($response); // instead of giving the caller the uuid of the author, give them the user handle
 
 echo json_encode($response);
-
-function rewriteAuthor($response) {
-    $response->author = getUsername($response->author);
-}

@@ -30,31 +30,44 @@ async function reply(_uuid) {
         uuid: _uuid,
         content: document.getElementById("reply-text-" + _uuid).value
     })
+
+    window.location.reload();
 }
 
 async function renderReplies(uuid) {
-    replies = document.createElement("div");
+    console.log("call to renderReplies");
+    let replies = document.createElement("div");
     replies.classList.add("reply_container");
 
-    replyText = document.createElement("textarea");
+    let replyText = document.createElement("textarea");
     replyText.classList.add("reply_text");
     replyText.setAttribute("id", "reply-text-" + uuid);
     replies.appendChild(replyText);
 
     replies.appendChild(document.createElement("br"));
 
-    replyButton = document.createElement("button");
+    let replyButton = document.createElement("button");
     replyButton.innerHTML = "Reply";
     replyButton.classList.add("post_button")
     replyButton.setAttribute("onclick", "reply(\"" + uuid + "\");");
     replies.appendChild(replyButton);
+    replies.appendChild(document.createElement("br"))
 
     // now the individual replies
 
+    let resp = await API("/api/v1/GETREPLIES.php", {
+        user: getCookie("username"),
+        key: getCookie("token"),
+        parent: uuid
+    });
+
+    resp = JSON.parse(resp);
+    for(let i = 0; i < resp.length; i++) {
+        let html = await toHTML(resp[i], true);
+        replies.appendChild(html);
+    }
     return replies;
 }
-
-
 
 async function getFeed() {
     feed = await API("/api/v1/FEEDQUERY.php", {
@@ -64,26 +77,22 @@ async function getFeed() {
     return JSON.parse(feed);
 }
 
-
-async function toHTML(postobject) {
-    post = document.createElement("div");
+async function toHTML(postobject, isReply=false) {
+    let post = document.createElement("div");
     post.setAttribute("id", postobject.uuid);
-    post.setAttribute("class", "post");
-
+    post.setAttribute("class", isReply ? "reply" : "post");
 
     // info banner
-    
 
-    bannerDiv = document.createElement("div");
+    let bannerDiv = document.createElement("div");
     bannerDiv.setAttribute("class", "postbanner"); 
 
-    authorlink = document.createElement("a");
+    let authorlink = document.createElement("a");
     authorlink.setAttribute("href", "/user.php?name=" + postobject.author);
     authorlink.classList.add("postheader");
-
     // profile picture
     // i forget why i made tis a container div but there's probably a reason
-    iconDiv = document.createElement("div");
+    let iconDiv = document.createElement("div");
     iconDiv.style.display = "inline";
 
     icon = document.createElement("img");
@@ -104,24 +113,24 @@ async function toHTML(postobject) {
     authorlink.appendChild(iconDiv);
     
     // name
-    author = document.createElement("span");
+    let author = document.createElement("span");
     author.setAttribute("class", "author");
     author.innerHTML = await getUserField("name", postobject.author);
     authorlink.appendChild(author);
 
     // handle
-    handle = document.createElement("span");
+    let handle = document.createElement("span");
     handle.setAttribute("class", "handle");
     handle.innerHTML = "@" + postobject.author;
     authorlink.appendChild(handle);
 
     // time
 
-    permalink = document.createElement("a");
+    let permalink = document.createElement("a");
     permalink.setAttribute("href", "/viewpost.php?id=" + postobject.uuid);
     permalink.classList.add("postheader");
 
-    date = document.createElement("span");
+    let date = document.createElement("span");
     date.setAttribute("class", "date");
     date.innerHTML = new Date(postobject.date * 1000).toLocaleString();
     permalink.appendChild(date);
@@ -153,19 +162,19 @@ async function toHTML(postobject) {
 
 
     // content
-    content = document.createElement("p");
+    let content = document.createElement("p");
     content.innerHTML = postobject.content;
     content.classList.add("posttext");
     post.appendChild(content);
 
     
-    if(postobject.uuid == "678bbb3f8ef4b") {
+    if(!isReply) {
         replyContent = await renderReplies(postobject.uuid);
         post.appendChild(replyContent);
     }
 
     // first level replies
-    replies = document.createElement("div");
+    // replies = document.createElement("div");
     
     return post;
 
@@ -203,6 +212,7 @@ document.addEventListener("click", function(e) {
 
 // Generate post options menu
 function menuFactory(uuid) {
+
     menuDiv = document.createElement("div");
     menuDiv.setAttribute("class", "menuOptions");
     menuDiv.setAttribute("uuid", uuid);
