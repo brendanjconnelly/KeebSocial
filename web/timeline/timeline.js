@@ -20,6 +20,40 @@ async function initTimeline(users) {
     }
 }
 
+async function reply(_uuid) {
+    console.log("reply for post uuid=" + _uuid);
+
+    let resp = API("/api/v1/ACT.php", {
+        user: getCookie("username"),
+        key: getCookie("token"),
+        action: "REPLY",
+        uuid: _uuid,
+        content: document.getElementById("reply-text-" + _uuid).value
+    })
+}
+
+async function renderReplies(uuid) {
+    replies = document.createElement("div");
+    replies.classList.add("reply_container");
+
+    replyText = document.createElement("textarea");
+    replyText.classList.add("reply_text");
+    replyText.setAttribute("id", "reply-text-" + uuid);
+    replies.appendChild(replyText);
+
+    replies.appendChild(document.createElement("br"));
+
+    replyButton = document.createElement("button");
+    replyButton.innerHTML = "Reply";
+    replyButton.classList.add("post_button")
+    replyButton.setAttribute("onclick", "reply(\"" + uuid + "\");");
+    replies.appendChild(replyButton);
+
+    // now the individual replies
+
+    return replies;
+}
+
 
 
 async function getFeed() {
@@ -123,6 +157,12 @@ async function toHTML(postobject) {
     content.innerHTML = postobject.content;
     content.classList.add("posttext");
     post.appendChild(content);
+
+    
+    if(postobject.uuid == "678bbb3f8ef4b") {
+        replyContent = await renderReplies(postobject.uuid);
+        post.appendChild(replyContent);
+    }
 
     // first level replies
     replies = document.createElement("div");

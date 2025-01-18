@@ -134,3 +134,15 @@ body {
     border: 1px solid transparent;
     border-radius: 5px;
 }
+
+.post_button {
+    background-color: var(--action-button-color);
+    color: var(--action-button-text);
+    padding: 10px;
+    margin: 5px;
+    border-color: var(--action-button-color);
+    border-radius: 20px;
+    padding: 9px;
+    box-shadow: 0px;
+    font-size: 1em;
+}

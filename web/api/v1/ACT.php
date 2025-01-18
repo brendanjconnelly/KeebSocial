@@ -32,4 +32,9 @@ if(strcmp($data->action, "POST") == 0) {
     exit();
 }
 
+if($data->action == "REPLY") {
+    echo createPost($data->user, $data->content, $data->uuid);
+    exit();
+}
+
 echo '0';

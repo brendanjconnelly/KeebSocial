@@ -22,6 +22,7 @@
 
 .date {
     font-size: 0.9em;
+    display: inline-block;
 }
 
 .postico {
@@ -59,4 +60,9 @@
 .posttext {
     width: 90%;
     word-wrap: break-word;
+}
+
+.reply_text {
+    width: 100%;
+    border-radius: 5px;
 }

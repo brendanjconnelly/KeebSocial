@@ -27,7 +27,7 @@ function pushPostArray($uuid, $field, $content) {
     );
 }
 
-function createPost($username, $content) {
+function createPost($username, $content, $parent = "") {
     global $keebsocial_content;
     if(strcmp($content, '') == 0) return 1;
     $uuid = uniqid();
@@ -35,7 +35,7 @@ function createPost($username, $content) {
         'uuid' => $uuid,
         'author' => getUserField($username, 'uuid'),
         'content' => htmlspecialchars($content),
-        'parent' => '',
+        'parent' => $parent,
         'replies' => [],
         'likes' => [],
         'reposts' => [],
