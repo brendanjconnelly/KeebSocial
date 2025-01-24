@@ -7,6 +7,7 @@
  * @param target user to check
  * @return 0 on success idk what the rest is bro
  */
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER_AUTH.php";
 require_once getenv("PHP_ROOT") . "/api/helper/DB.php";
@@ -14,15 +15,15 @@ require_once getenv("PHP_ROOT") . "/api/helper/DB.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if(!isset($data->key) || !isset($data->target) || !isset($data->user)) {
-    echo '10';
+    echo $BAD_PARAMS;
     exit();
 }
 if(!cUserExists($data->target) || !cUserExists($data->user)) {
-    echo '20';
+    echo $BAD_ARGUMENT;
     exit();
 }
 if(!checkToken($data->user, $data->key)) {
-    echo '30';
+    echo $UNAUTHORIZED;
     exit();
 }
 

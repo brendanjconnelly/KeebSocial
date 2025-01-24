@@ -9,7 +9,7 @@
  * @param field yeah what about him?
  * what am i doing with my life
  */
-
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER_AUTH.php";
 require_once getenv("PHP_ROOT") . "/api/helper/DB.php";
@@ -17,12 +17,12 @@ require_once getenv("PHP_ROOT") . "/api/helper/DB.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if(!isset($data->key) || !isset($data->target) || !isset($data->user) || !isset($data->field)) {
-    echo '10';
+    echo $BAD_PARAMS;
     exit();
 }
 
 if(!_isValidUserField($data->field)) {
-    echo '10';
+    echo $BAD_FIELD;
     exit();
 }
 

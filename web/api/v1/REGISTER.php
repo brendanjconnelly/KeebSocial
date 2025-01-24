@@ -9,6 +9,7 @@
  * @param password Password to associate with new username
  * @return 0|1
  */
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 
 require_once getenv("PHP_ROOT") . "/api/helper/USER_AUTH.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER.php";
@@ -17,12 +18,12 @@ $data = json_decode(file_get_contents("php://input"));
 
 // bad params
 if(!isset($data->username) || !isset($data->name) || !isset($data->password)) {
-    echo '10';
+    echo $BAD_PARAMS;
     exit();
 }
 
 if(userExists($data->username)) {
-    echo '20';
+    echo $BAD_ARGUMENT;
     exit();
 }
 
@@ -30,4 +31,4 @@ if(userExists($data->username)) {
 
 createUser($data->username, "", $data->password); // registers user in the auth database (w/ blank email as argv[1])
 initializeUser($data->username, $data->name); // initializes user profile in the content database
-echo '0';
+echo $SUCCESS;

@@ -6,17 +6,18 @@
  * @param field
  * @return holyhell
  */
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER.php";
 
 $data = json_decode(file_get_contents("php://input"));
 
 if(!isset($data->user) || !isset($data->field)) {
-    echo '10';
+    echo $BAD_PARAMS;
     exit();
 }
 
 if((strcmp($data->field, "follows") != 0) && (strcmp($data->field, "followers") != 0)) {
-    echo '10';
+    echo $BAD_FIELD;
     exit();
 }
 

@@ -11,11 +11,12 @@
  * @return token on valid login 
  */
 
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER_AUTH.php";
 $data = json_decode(file_get_contents('php://input'));
 
 if(!userExists($data->username)) {
-    echo '10';
+    echo $BAD_ARGUMENT;
     die();
 }
 

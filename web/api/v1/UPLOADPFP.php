@@ -6,10 +6,11 @@
  * @param key key
  * @param pfp new pfp (file upload)
  */
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 
 
-if(!isset($_POST["user"]) || !isset($_POST["key"])) exit();
-if(!isset($_FILES["pfp"])) {
+if(!isset($_POST["user"]) || !isset($_POST["key"]) || !isset($_FILES["pfp"])) {
+    echo $BAD_PARAMS;
     exit();
 }
 
@@ -19,3 +20,5 @@ $user = $_POST["user"];
 $newpath = "/var/keebsocial/assets/pfp/$user.png";
 move_uploaded_file($_FILES["pfp"]["tmp_name"], $newpath);
 setUserField($user, "pfp", "/assets/pfp/$user.png");
+
+echo $SUCCESS

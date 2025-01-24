@@ -12,7 +12,7 @@
  * @return count if index is not set
  *  Number of posts available in the given feed
  */
-
+require_once getenv("PHP_ROOT") . "/api/helper/RC.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER.php";
 require_once getenv("PHP_ROOT") . "/api/helper/USER_AUTH.php";
 require_once getenv("PHP_ROOT") . "/api/helper/POST.php";
@@ -21,12 +21,12 @@ require_once getenv("PHP_ROOT") . "/api/helper/POST.php";
 $data = json_decode(file_get_contents("php://input"));
 
 if(!isset($data->key) || !isset($data->user)) {
-    echo '1';
+    echo $BAD_PARAMS;
     exit();
 }
 
 if(!checkToken($data->user, $data->key)) {
-    echo '30';
+    echo $UNAUTHORIZED;
     exit();
 }
 
