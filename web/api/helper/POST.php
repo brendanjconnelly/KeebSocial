@@ -54,11 +54,6 @@ function deletePost($uuid) {
     );
 }
 
-// uuid of parent keeb
-function reply($username, $content, $uuid) {
-
-}
-
 function getPost($uuid) {
     global $keebsocial_content;
     return $keebsocial_content->posts->findOne(['uuid' => $uuid]);
@@ -66,7 +61,12 @@ function getPost($uuid) {
 
 function getReplies($uuid) {
     global $keebsocial_content;
-    return $keebsocial_content->posts->find(['parent' => ['$eq' => $uuid]]);
+    return $keebsocial_content->posts->find(
+        ['parent' => ['$eq' => $uuid]],
+        [
+            'sort' => ['date' => 1],
+        ]
+    );
 }
 
 
