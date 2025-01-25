@@ -21,6 +21,7 @@ if($check_authenticated) {
 <h3>Register</h3>
 <p><input type="text" id="newfullname" placeholder="Full Name"></input></p>
 <p><input type="text" id="newusername" placeholder="Username"></input></p>
+<p>Your username must be all lowercase.</p>
 <p><input type="password" id="newpassword" placeholder="Password"></input></p>
 <button id="register_button" onclick="register();">Register</button>
 <p id="register_result"></p>

@@ -75,7 +75,7 @@ function initializeUser($username, $name) {
     global $keebsocial_content;
     $uuid = uniqid();
     $keebsocial_content->users->insertOne([
-        'username' => htmlspecialchars($username),
+        'username' => htmlspecialchars(strtolower($username)),
         'name' => htmlspecialchars($name),
         'uuid' => $uuid,
         'date' => time(),
